@@ -9,22 +9,27 @@ import SwiftUI
 
 struct PokemonView: View {
     private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State var searchText = ""
     @ObservedObject var viewModel = PokemonviewModel()
     var body: some View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.pokemon) {
-                        pokemon in
+                    ForEach(viewModel.pokemon.filter { pokemon in
+                        searchText.isEmpty || pokemon.name.localizedCaseInsensitiveContains(searchText)
+                    }) { pokemon in
                         NavigationLink(
-                            destination: PokemonDetail( pokemon: pokemon),
+                            destination: PokemonDetail(pokemon: pokemon),
                             label: {
                                 PokemonCell(pokemon: pokemon, viewModel: viewModel)
-                            })
+                            }
+                        )
                         .foregroundColor(.black)
                     }
                 }
-            }.navigationTitle("Pokemon")
+            }
+            .searchable(text: $searchText)
+            .navigationTitle("Pokemon")
         }
     }
 }
@@ -39,11 +44,5 @@ struct BackButton: View {
                 .background(Color.white)
                 .cornerRadius(8.0)
         }
-    }
-}
-
-struct PokemonView_Previews: PreviewProvider {
-    static var previews: some View {
-        PokemonView()
     }
 }

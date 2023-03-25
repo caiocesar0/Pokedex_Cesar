@@ -94,9 +94,3 @@ struct ColorDotView: View {
             .clipShape(Circle())
     }
 }
-
-struct PokemonDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
