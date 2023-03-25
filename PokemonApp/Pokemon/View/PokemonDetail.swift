@@ -41,14 +41,14 @@ struct DescriptionView: View {
             Text(pokemon.name.uppercased())
                 .font(.title)
                 .fontWeight(.bold)
-            Text("Description")
+            Text("Bio")
                 .fontWeight(.medium)
                 .padding(.vertical, 2)
             Text(pokemon.description)
                 .opacity(0.6)
             HStack (alignment: .top) {
                 VStack (alignment: .leading) {
-                    Text("Size")
+                    Text("Details")
                         .fontWeight(.medium)
                         .padding(.vertical, 2)
                     Text("Height: \(pokemon.height) dm")
